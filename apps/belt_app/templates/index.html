@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <title>Landing Page</title>
+</head>
+<body>
+    <div class="wrapper" id="gate">
+        <h2>Hello</h2>
+        <form action="/sign_up" method="POST">
+            <h3>Please Sign Up</h3>
+            {% csrf_token %}
+            <input type="text" name="first_name" placeholder="First Name" required>
+            {% if 'first_name' in request.session.errors %}
+                <h5>{{request.session.errors.first_name}}</h5>
+            {% endif%}
+            <input type="text" name="last_name" placeholder="Last Name" required>
+            {% if 'last_name' in request.session.errors %}
+                <h5>{{request.session.errors.last_name}}</h5>
+            {% endif%}
+            <input type="text" name="email" placeholder="E-mail address" required>
+            {% if 'email' in request.session.errors %}
+                <h5>{{request.session.errors.email}}.</h5>
+            {% endif%}
+            <input type="password" name="password" placeholder="Create a passord (8 characters minimum)" required>
+            {% if 'password' in request.session.errors %}
+                <h5>{{request.session.errors.password}}</h5>
+            {% endif%}
+            <input type="password" name="pw_confirm" placeholder="Confirm your password" required>
+            {% if 'pw_confirm' in request.session.errors %}
+                <h5>{{request.session.errors.pw_confirm}}</h5>
+            {% endif%}
+            <button type="submit">Sign Up</button>
+        </form>
+        <form action="/log_in" method="POST">
+            <h3>Log In</h3>
+            {% csrf_token %}
+            <input type="text" name="email" placeholder="E-mail address">
+            {% if 'login_email' in request.session.errors %}
+            <h5>{{request.session.errors.login_email}}.</h5>
+            {% endif%}
+            <input type="password" name="password" placeholder="Your Password">
+            {% if 'login_password' in request.session.errors %}
+            <h5>{{request.session.errors.login_password}}</h5>
+            {% endif%}
+            <button type="submit">Log In</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <title>Edit Account</title>
+</head>
+<body>
+    <div class="wrapper">
+        <h2>Edit Account</h2>
+        <form action="/account_update" method="POST">
+            {% csrf_token %}
+            <input type="text" name="first_name" value="{{user.first_name}}" required>
+            {% if 'first_name' in request.session.errors %}
+                <h5>{{request.session.errors.first_name}}</h5>
+            {% endif%}
+            <input type="text" name="last_name" value="{{user.last_name}}" required>
+            {% if 'last_name' in request.session.errors %}
+                <h5>{{request.session.errors.last_name}}</h5>
+            {% endif%}
+            <input type="text" name="email" value="{{user.email}}" required>
+            {% if 'email' in request.session.errors %}
+                <h5>{{request.session.errors.email}}.</h5>
+            {% endif%}
+            <input type="hidden" name="id" value="{{user.id}}">
+            <button type="submit">Update Account</button>
+        </form>
+        <a href="/dashboard"><button style="background-color:olive">CANCEL</button></a>
+    </div>
+    
+</body>
+</html>
